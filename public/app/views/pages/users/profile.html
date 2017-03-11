@@ -1,0 +1,75 @@
+<div class="page-header">
+    <h1>{{ main.userName }}'s profile</h1>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading" style="text-align: center;"><strong>User profile</strong></div>
+    
+<br />
+<br />
+
+<table class="table">
+    <tr>
+        <td class="videosRow"><strong>Username</strong></td>
+        <td class="videosRow"><strong>Total videos</strong></td>
+    </tr>
+    <tr>
+        <td class="videosRow">{{ main.userName }}</td>
+        <td class="videosRow"><strong>Videos count</strong></td>
+    </tr>
+</table>
+
+
+</div>
+<div class="panel-heading" style="text-align: center;"><strong>Add Video to DB :</strong></div>
+
+
+<form ng-submit="videos.regVideo(videoData)">
+  
+    <div>
+        <label>Title:</label>
+        <input class="form-control" type="text" name="title" placeholder="Please enter title..." ng-model="videos.videoData.title" required/>
+    </div>
+    
+    <br />
+    
+   <div>
+        <label>Category:</label>
+        <input class="form-control" type="text" name="category" placeholder="Please enter category..." ng-model="videos.videoData.category" required/>
+   </div>
+    
+    <br />
+    
+    <div>
+        <label>Description:</label>
+        <input class="form-control" type="text" name="description" placeholder="Please enter description..." ng-model="videos.videoData.desc" required/>
+   </div>
+   
+   <br />
+   
+   <div ng-class="">
+        <label>Link:</label>
+        <input class="form-control" type="text" name="link" placeholder="Please enter link..." ng-model="videos.videoData.link" ng-pattern="/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/" required/>
+   </div>
+    <br />
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+
+<br />
+
+<div class="jumbotron text-center" ng-show="videos.loading">
+    <span class="glyphicon glyphicon-repeat spinner"></span>
+    <p>Loading.....</p>
+</div>
+
+<br />
+
+<div class="row show-hide-message" ng-show="videos.successMsg">
+    <div class="alert alert-success">{{ videos.successMsg }}</div>
+</div>
+
+<br />
+
+<div class="row show-hide-message" ng-show="videos.errorMsg">
+    <div class="alert alert-danger">{{ videos.errorMsg }}</div>
+</div>

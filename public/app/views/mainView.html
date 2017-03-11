@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en" ng-app="userApp" ng-controller="mainCtrl as main">
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"></script>
+      
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    
+    <!--  Custom fonts  -->
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+    
+    <!-- Main Angular files -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-animate.min.js"></script>
+    
+    <!-- Angular config /Routes -->
+    <script src="app/app.js"></script>
+    <script src="app/routes.js"></script>
+    
+    <!-- Angular Controllers -->
+    <script src="app/controllers/userCtrl.js"></script>
+    <script src="app/controllers/mainCtrl.js"></script>
+    <script src="app/controllers/videosCtrl.js"></script>
+    <script src="app/controllers/playVideoCtrl.js"></script>
+    
+    <!-- Angular Services -->
+    <script src="app/services/userServices.js"></script>
+    <script src="app/services/authServices.js"></script>
+    <script src="app/services/videoServices.js"></script>
+    
+    
+    
+    <title>YT VIDEO MANAGER</title>
+    
+  </head>
+
+  <body id="page-top" ng-show="main.loadMe" ng-cloak>
+
+    <!-- Fixed navbar -->
+    <nav id="mainNav" class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand page-scroll" href="#page-top">Scroll up</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-class="{ active: isActive('/View1') }"><a href="/">Home</a></li>
+            <li ng-class="{ active: isActive('/View2') }"><a ng-show="!main.isLoggedIn" href="/login">Login</a></li>
+            <li ng-class="{ active: isActive('/View3') }"><a ng-show="!main.isLoggedIn" href="/register">Register</a></li>
+            <li ng-class="{ active: isActive('/View4') }"><a ng-show="main.isLoggedIn" href="#" ng-click="main.logout()">Logout</a></li>
+            <li ng-class="{ active: isActive('/View5') }"><a ng-show="main.isLoggedIn" href="/videos">Videos</a></li>
+            <li><a ng-show="main.isLoggedIn" href="/profile">Hello {{ main.userName }} </a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <h1 id="homeHeading">Arrange your various videos all in one place !</h1>
+                <hr>
+                <p>Grab youtube video links and manage them by sorting to different categories for your convenience</p>
+                <a href="#about" class="btn btn-primary btn-xl page-scroll">Scroll down</a>
+            </div>
+        </div>
+    </header>
+    
+    <section class="bg-primary" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+<!--
+                    <h2 class="section-heading">We've got what you need!</h2>
+                    <hr class="light">
+                    <p class="text-faded">Start Bootstrap has everything you need to get your new website up and running in no time! All of the templates and themes on Start Bootstrap are open source, free to download, and easy to use. No strings attached!</p>
+                    <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+-->
+                </div>
+            </div>
+            <div ng-view></div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Filter video's by : </h2>
+                    <hr class="primary">
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-tags text-primary sr-icons"></i>
+                        <h3>Title</h3>
+                        <p class="text-muted"><strong>Sort your video's easily by title</strong></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-video-camera text-primary sr-icons"></i>
+                        <h3>Category</h3>
+                        <p class="text-muted"><strong>Sort your video's easily by categories</strong></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-sort-amount-desc text-primary sr-icons"></i>
+                        <h3>Description</h3>
+                        <p class="text-muted"><strong>Sort your video's easily by Description</strong></p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center">
+                    <div class="service-box">
+                        <i class="fa fa-4x fa-link text-primary sr-icons"></i>
+                        <h3>Link</h3>
+                        <p class="text-muted"><strong>Sort your video's easily by Links</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <aside class="bg-dark">
+        <div class="container text-center">
+            <div class="call-to-action">
+                <h2>Go to youtube to grab your links</h2>
+                <a target="_blank" href="http://youtube.com/" class="btn btn-default btn-xl sr-button">Youtube site</a>
+            </div>
+        </div>
+    </aside>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 text-center">
+                    <h2 class="section-heading">Let's Get In Touch!</h2>
+                    <hr class="primary">
+                    <p>If you enjoyed this site - you can tell me about it and I will deliever more features to you!!!</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-2 text-center">
+                    <i class="fa fa-phone fa-3x sr-contact"></i>
+                    <p>054-7717712</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                    <p><a href="mailto:your-email@your-domain.com">yoaviku@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="assets/js/scrollreveal.min.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
