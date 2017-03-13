@@ -403,46 +403,32 @@ img::-moz-selection {
     background-color:chartreuse;
 }
 
-@media(max-width: 1200px) {
+@media(max-width: 600px) {
     td {
-        font-size: 12px;       
+        font-size: 12px;
+        text-align: center;
     }
 }
 
-/*
-@media(max-width: 999px) {
-    table, th, td, tr {
-        display: block;
-        
-    }
+.btnVideos {
+    margin: 10px;
 }
-*/
-
-/*
-.btnVideo {
-    display:inline-block;
-}
-*/
-
-
+    
 table { 
   width: 100%;   
   border-collapse: collapse;  
 } 
-
-th {  
-  display: none; 
-} 
+ 
 td {  
-  text-align: left;  
+  text-align: center;  
 } 
 
 @media  
-only screen and (max-width: 1000px) {
+only screen and (max-width: 993px) {
     th {
         display: none; 
     }
-	table, th, tr, td { 
+	table, tr, td { 
 		display: block; 
 	}
 	
@@ -459,7 +445,10 @@ only screen and (max-width: 1000px) {
 		position: relative;
 		padding-left: 50%; 
 	}
+    
+   
 	
+/*
 	td:before { 
 		
 		position: absolute;
@@ -469,10 +458,32 @@ only screen and (max-width: 1000px) {
 		padding-right: 10px; 
 		white-space: nowrap;
 	}
+*/
 	
 	
-	td:nth-of-type(1):before { content: "Title"; }
-	td:nth-of-type(2):before { content: "Category"; }
-	td:nth-of-type(3):before { content: "Description"; }
-	td:nth-of-type(4):before { content: "Link"; }
+	td:nth-of-type(1):before { 
+        content: "Title :";
+        text-align: left;
+        display: block;
+        font-weight: bold;
+    }
+	td:nth-of-type(2):before { 
+        content: "Category :";
+        text-align: left;
+        display: block;
+        font-weight: bold;
+    }
+	td:nth-of-type(3):before { 
+        content: "Description: ";
+        text-align: left;
+        display: block;
+        font-weight: bold;
+    }
+	td:nth-of-type(4):before { 
+        content: "Link: ";
+        text-align: left;
+        display: block;
+        font-weight: bold;
+    }
 }
+
