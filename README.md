@@ -9,4 +9,5 @@ c. On save or delete, show notification of delete or saved successfully
 d. apply this only to videos table!    
 e. sort by header
 f. add current videos count on profile page
+on filter search mode - when table colapses - <td> width is half screen in the table
 
