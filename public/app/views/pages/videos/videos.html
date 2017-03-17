@@ -2,8 +2,6 @@
     <h1>{{ main.userName }}'s Videos</h1>
 </div>
 
-
-
 <br />
 
 <div class="jumbotron text-center" ng-show="videos.loading">
@@ -13,21 +11,21 @@
 
 <br />
         
-        <button id="addButton" type="button" class="btn btn-success"><a href="/profile">Add video</a></button>
-        <br />
-        <br />
-       <form>
-            <div class="form-group">
-              <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-search" style="cursor:pointer" ng-click="searchTable()"></i></div>
-                    <input type="text" class="form-control" placeholder="Search in table" ng-model="searchVideo">
-             </div>      
-            </div>
-       </form>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-          <strong>User Videos</strong>   
-        </div>
+<button id="addButton" type="button" class="btn btn-success"><a href="/profile">Add video</a></button>
+<br />
+<br />
+<form>
+    <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-addon"><i class="fa fa-search" style="cursor:pointer" ng-click="searchTable()"></i></div>
+            <input type="text" class="form-control" placeholder="Search in table" ng-model="searchVideo">
+     </div>      
+    </div>
+</form>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <strong>User Videos</strong>   
+    </div>
     <table class="table table-responsive table-hover" ng-show="!editSomeVideo" >
         <tr>
             <th class="videosRow">Title</th>
@@ -35,53 +33,91 @@
             <th class="videosRow">Description</th>
             <th class="videosRow">Link</th>
             <th class="videosRow"></th>
-            <th class="videosRow"></th>
-            <th class="videosRow"></th>
         </tr>
         <tr ng-repeat="video in videoData track by $index">
+           
             <td class="videosRow" ng-if="!video.input">{{ video.video.title }}</td>
-            <td ng-if="video.input"><input type="text" class="videosRow" ng-model="video.video.title"/></td>
+            <td ng-if="video.input"><input type="text" class="videosRow form-control" ng-model="video.video.title" ng-class="{ error: !video.video.title }"/></td>
             <td class="videosRow" ng-if="!video.input">{{ video.video.category }}</td>
-            <td ng-if="video.input"><input type="text" class="videosRow" ng-model="video.video.category"/></td>
+            <td ng-if="video.input"><input type="text" class="videosRow form-control" ng-model="video.video.category" ng-class="{ error: !video.video.category }"/></td>
             <td class="videosRow" ng-if="!video.input">{{ video.video.desc }}</td> 
-            <td ng-if="video.input"><input type="text" class="videosRow" ng-model="video.video.desc"/></td>        
+            <td ng-if="video.input"><input type="text" class="videosRow form-control" ng-model="video.video.desc" ng-class="{ error: !video.video.desc }"/></td>        
             <td class="videosRow" ng-if="!video.input">{{ video.video.link }}</td>
-            <td ng-if="video.input"><input type="text" class="videosRow" ng-model="video.video.link"/></td>
+            <td ng-if="video.input"><input type="text" class="videosRow form-control inputLink" ng-model="video.video.link" ng-pattern="/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/" ng-class="{ error: !video.video.link }"/></td>
             <td class="videosRow">
-              <a href="{{ video.video.link }}" target="_blank" >Play video</a>
-<!--                            <iframe name="vid" width=200 height=200 src="about:blank"></iframe><br>-->
-                             
-
-<!--                <a href="{{ video.video.link }}" target="vid">Play Video</a>-->
-            
-            </td>
-            <td>
                 <a href="#" ng-if="!video.input">
-                    <button type="button" class="btn btn-info btnVideo" ng-click="video.input = true">Edit</button>
+                    <button type="button" class="btn btn-info btnVideos btnEdit" ng-click="video.input = true">Edit</button>
                 </a>
-            </td>
-               <td>
                 <a href="#" ng-if="video.input">
-                    <button type="button" class="btn btn-info btnVideo" ng-click="video.input = false; saveEditedVideoInDb(video)">Save</button>
+                    <button type="submit" ng-disabled="!video.video.title || !video.video.category || !video.video.desc || !video.video.link" class="btn btn-info btnVideos btnSave" ng-click="video.input = false; saveEditedVideoInDb(video)">Save</button>
                 </a>
-            </td>   
-            <td>
+                
+<!--                <a href="{{ video.video.link }}" target="_blank" class="btnVideos btnPlay" id="playButton">PLAY</a>-->
+                <button class="btnVideos btnPlay" ng-click="PlayVideo(video.video, $index)">PLAY</button>
+
+                <div id="videoModal_{{$index}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <iframe width="500" height="350" frameborder="0" allowfullscreen=""></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <a href="#">
-                    <button type="button" class="btn btn-danger btnVideo" ng-click="deleteVideo(video)">Delete</button>
+                    <button type="button" data-toggle="modal" class="btn btn-danger btnVideos btnDelete" ng-click="openConfirmDeleteVideo(video, $index)">Delete</button>
                 </a>
+                
+                <div class="modal fade" id="confirm-delete_{{$index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+            
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+                            </div>
+            
+                            <div class="modal-body">
+                                <p>You are about to delete one track, this procedure is irreversible.</p>
+                                <p>Do you want to proceed?</p>
+                                <p class="debug-url"></p>
+                            </div>
+                
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-danger btn-ok" ng-click="deleteVideo(video, $index)">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </td>
-        </tr>
-          
+        </tr>    
     </table>  
+</div>
+
+<button id="currentLink">My video</button>
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <iframe width="500" height="350" frameborder="0" allowfullscreen=""></iframe>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="row show-hide-message" ng-show="videos.successMsg">
     <div class="alert alert-success">{{main.successMsg}}</div>
 </div>
-
-
 <br />
-
 <div class="row show-hide-message" ng-show="videos.errorMsg">
     <div class="alert alert-danger">{{main.errorMsg}}</div>
 </div>

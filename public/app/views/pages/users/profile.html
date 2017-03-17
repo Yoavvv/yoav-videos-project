@@ -15,7 +15,7 @@
     </tr>
     <tr>
         <td class="videosRow">{{ main.userName }}</td>
-        <td class="videosRow"><strong>Videos count</strong></td>
+        <td class="videosRow"><strong>{{main.videoCount}}</strong></td>
     </tr>
 </table>
 
@@ -28,28 +28,28 @@
   
     <div>
         <label>Title:</label>
-        <input class="form-control" type="text" name="title" placeholder="Please enter title..." ng-model="videos.videoData.title" required/>
+        <input class="form-control" type="text" name="title" placeholder="Please enter title..." ng-model="videos.videoData.title" maxlength="20" required/>
     </div>
     
     <br />
     
    <div>
         <label>Category:</label>
-        <input class="form-control" type="text" name="category" placeholder="Please enter category..." ng-model="videos.videoData.category" required/>
+        <input class="form-control" type="text" name="category" placeholder="Please enter category..." ng-model="videos.videoData.category" maxlength="20" required/>
    </div>
     
     <br />
     
     <div>
         <label>Description:</label>
-        <input class="form-control" type="text" name="description" placeholder="Please enter description..." ng-model="videos.videoData.desc" required/>
+        <input class="form-control" type="text" maxlength="40" name="description" placeholder="Please enter description..." ng-model="videos.videoData.desc" required/>
    </div>
    
    <br />
    
    <div ng-class="">
         <label>Link:</label>
-        <input class="form-control" type="text" name="link" placeholder="Please enter link..." ng-model="videos.videoData.link" ng-pattern="/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/" required/>
+        <input class="form-control" type="text" maxlength="50" name="link" placeholder="Please enter link..." ng-model="videos.videoData.link" ng-pattern="/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/" required/>
    </div>
     <br />
     <button class="btn btn-primary" type="submit">Submit</button>

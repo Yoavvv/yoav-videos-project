@@ -3,8 +3,7 @@
     "use strict";
 
     angular.module("mainController", ["authServices"])
-    
-    .controller("mainCtrl", function(Auth, $timeout, $location, $rootScope, $scope) {
+    .controller("mainCtrl", function(Auth, $timeout, $location, $rootScope, $scope, $http) {
         
         $scope.isActive = function (viewLocation) {
         var active = (viewLocation === $location.path());
@@ -16,6 +15,10 @@
         app.loadMe = false;
         
         $rootScope.$on("$routeChangeStart", function() {
+            var userName = localStorage.getItem('userName');
+            $http.get("/getVideos/" + userName).then((function(allVideos){
+                    app.videoCount = allVideos.data.videos.length;
+                }));
             
             if (Auth.isLoggedIn()) {
                 app.isLoggedIn = true;
@@ -41,7 +44,7 @@
                     app.successMsg = data.data.message + " Redirecting...";
                     
                     $timeout(function() {
-                        $location.path("/about");
+                        $location.path("/home");
                         app.loginData = '';
                         app.successMsg = false;
                     }, 3000);
