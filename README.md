@@ -3,8 +3,9 @@
 very important:    
 
 1. routs - on api.js we did routs to :
-register (on routes.js) - and named it 'users'
-login (on routes.js) - and named it 'authenticate'
+register (on routes.js) - and named it 'users' . 
+
+login (on routes.js) - and named it 'authenticate' . 
 
 also for all the CRUD functionality :
 getVideos/:userName - not mentioned at all at routes.js
