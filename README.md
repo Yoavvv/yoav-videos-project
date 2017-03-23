@@ -3,15 +3,20 @@
 very important:    
 
 1. routs - on api.js we did routs to :
+
 register (on routes.js) - and named it 'users' . 
 
 login (on routes.js) - and named it 'authenticate' . 
 
 also for all the CRUD functionality :
-getVideos/:userName - not mentioned at all at routes.js
-regForm - not mentioned at all at routes.js
-/editVideo/ - not mentioned at all at routes.js
-/deleteVideo/ - not mentioned at all at routes.js
+
+getVideos/:userName - not mentioned at all at routes.js .
+
+regForm - not mentioned at all at routes.js .
+
+/editVideo/ - not mentioned at all at routes.js .
+
+/deleteVideo/ - not mentioned at all at routes.js .
 
 All the above is working fine , the thing is that when you type in 'http://localhost:3000/....' the route - it gives you nothing except redirecting back to home page 
 
